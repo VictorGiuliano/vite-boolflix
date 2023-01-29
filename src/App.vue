@@ -29,13 +29,18 @@ export default {
       this.nameFilter = word
     },
     searchMovies() {
-      if (!this.titleFilter) {
+      if (!this.nameFilter) {
         this.movies = [];
+        this.tv = [];
         return;
       }
-      axios.get(`${baseUri}/search/movie`, this.axiosConfig)
+      this.CatchApi('search/movie', 'movies');
+      this.CatchApi('search/tv', 'tv');
+    },
+    CatchApi(url, groupArray) {
+      axios.get(`${baseUri}/${url}`, this.axiosConfig)
         .then(res => {
-          store.movies = res.data.results;
+          store[groupArray] = res.data.results;
         }).catch(err => {
           console.error(err);
           store.movies = [];
