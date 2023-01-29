@@ -1,5 +1,4 @@
 <script>
-import axios from 'axios';
 import AppSelection from './utilities/AppSelection.vue';
 export default {
     name: 'AppHeader',

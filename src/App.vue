@@ -9,7 +9,7 @@ export default {
   components: { AppHeader, AppMain },
   data() {
     return {
-      store, apiKey, baseUri, language,
+      store,
       nameFilter: '',
     }
   },
@@ -22,17 +22,24 @@ export default {
           query: this.nameFilter
         }
       }
-    }
+    },
   },
   methods: {
     titleFilter(word) {
       this.nameFilter = word
     },
     searchMovies() {
+      if (!this.titleFilter) {
+        this.movies = [];
+        return;
+      }
       axios.get(`${baseUri}/search/movie`, this.axiosConfig)
         .then(res => {
           store.movies = res.data.results;
-        }).catch(err => { console.error(err) });
+        }).catch(err => {
+          console.error(err);
+          store.movies = [];
+        });
     }
   },
 }
@@ -41,7 +48,7 @@ export default {
 </script>
 <template>
   <app-header @filter-name="titleFilter" @call="searchMovies"></app-header>
-  <AppMain />
+  <app-main :title="store.movies.title"></app-main>
 </template>
 <style lang="scss">
 @use './assets/scss/style.scss';
