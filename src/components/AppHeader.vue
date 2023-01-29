@@ -1,16 +1,16 @@
 <script>
+import axios from 'axios';
 import AppSelection from './utilities/AppSelection.vue';
 export default {
     name: 'AppHeader',
-    data() {
-        return {
-            nameFilter: ''
-        }
-    },
+    emits: ['filter-name', 'call'],
     components: { AppSelection },
     methods: {
-        onChange() {
-            this.nameFilter = word;
+        changeTitleFilter(word) {
+            this.$emit('filter-name', word);
+        },
+        passMovies() {
+            this.$emit('call');
         }
     }
 }
@@ -20,7 +20,8 @@ export default {
         <div class="Logo">
             <img src="../assets/img/logo.png">
         </div>
-        <app-selection placeholder="Cerca per Nome" @word-change="onChange"></app-selection>
+        <app-selection placeholder="Cerca Film" @word-change="changeTitleFilter"
+            @form-submit="passMovies"></app-selection>
     </header>
 </template>
 <style>

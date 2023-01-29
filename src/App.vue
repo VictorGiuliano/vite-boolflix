@@ -1,6 +1,7 @@
 <script>
 import axios from 'axios';
-import { datiUpi } from './data/data';
+import { store } from './data/data';
+import { apiKey, baseUri, language } from './data/index';
 import AppHeader from './components/AppHeader.vue';
 import AppMain from './components/AppMain.vue';
 export default {
@@ -8,33 +9,38 @@ export default {
   components: { AppHeader, AppMain },
   data() {
     return {
-      datiUpi
+      store, apiKey, baseUri, language,
+      nameFilter: '',
+    }
+  },
+  computed: {
+    axiosConfig() {
+      return {
+        params: {
+          api_key: apiKey,
+          language: language,
+          query: this.nameFilter
+        }
+      }
     }
   },
   methods: {
-    fetchFilm(url) {
-      axios.get(url)
-        .then(res => {
-          datiUpi.filmUri = res.data.results
-        })
+    titleFilter(word) {
+      this.nameFilter = word
     },
-    fetchSeries(url) {
-      axios.get(url)
+    searchMovies() {
+      axios.get(`${baseUri}/search/movie`, this.axiosConfig)
         .then(res => {
-          datiUpi.tvUri = res.data.results
-        })
-    },
+          store.movies = res.data.results;
+        }).catch(err => { console.error(err) });
+    }
   },
-  created() {
-    this.fetchFilm(datiUpi.filmUri);
-    this.fetchSeries(datiUpi.tvUri);
-  }
 }
 
 
 </script>
 <template>
-  <AppHeader />
+  <app-header @filter-name="titleFilter" @call="searchMovies"></app-header>
   <AppMain />
 </template>
 <style lang="scss">
