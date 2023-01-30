@@ -1,10 +1,10 @@
 <script>
-import { poster } from '../../data/index';
+import { poster, placeholder } from '../../data/index';
 export default {
     name: "Card",
     data() {
         return {
-            poster
+            poster, placeholder
         };
     },
     props: {
@@ -23,8 +23,14 @@ export default {
             let posterUrl = "";
             if (this.prod.poster_path) {
                 posterUrl = poster + this.prod.poster_path;
+                return posterUrl;
+            } else {
+                return placeholder;
             }
-            return posterUrl;
+
+
+
+
         },
         vote() {
             return Math.floor(this.prod.vote_average / 2);
