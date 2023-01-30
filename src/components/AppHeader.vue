@@ -17,9 +17,12 @@ export default {
 <template>
     <header>
         <div class="container d-flex-space">
-            <div class="Logo">
-                <img src="../assets/img/logo.png">
-            </div>
+            <a href="#">
+                <div class="Logo">
+                    <img src="../assets/img/logo.png">
+                </div>
+            </a>
+
             <div>
                 <app-selection placeholder="Cerca titolo" @word-change="changeTitleFilter"
                     @form-submit="passMovies"></app-selection>

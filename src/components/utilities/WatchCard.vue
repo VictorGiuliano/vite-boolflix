@@ -27,10 +27,6 @@ export default {
             } else {
                 return placeholder;
             }
-
-
-
-
         },
         vote() {
             return Math.floor(this.prod.vote_average / 2);
@@ -42,8 +38,9 @@ export default {
 <template>
     <div class="card">
         <img class="poster" :src="posterUrl" :alt="prod.original_name">
-        <ul>
-            <li class="hiden">{{ prod.title || prod.name }}</li>
+
+        <ul class="overlay">
+            <li>{{ prod.title || prod.name }}</li>
             <li>{{ prod.original_title || prod.original_name }}</li>
             <li>
                 <img v-if="hasFlag" :src="srcFlags" :alt="prod.original_language">
@@ -53,6 +50,7 @@ export default {
                 <i v-for="n in 5" :class="n <= this.vote ? 'fa-solid' : 'fa-regular'" class="fa-star"></i>
             </li>
         </ul>
+
     </div>
 </template>
 <style lang="scss" scoped>
@@ -65,19 +63,48 @@ export default {
 }
 
 .card {
-    width: 170px;
+    width: 200px;
     flex-basis: calc(100% /5);
+    position: relative;
+    cursor: pointer;
+
+    ul {
+        visibility: hidden;
+    }
+}
+
+.card:hover {
+
+    ul {
+        color: white;
+        visibility: visible;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        li {
+
+            img {
+                width: 50px;
+            }
+        }
+
+
+    }
+
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 1);
+    }
 }
 
 .poster {
-    max-height: 100%;
+    height: 100%;
     width: 100%;
-}
-
-li {
-    img {
-        height: 10%;
-        width: 10%;
-    }
 }
 </style>
