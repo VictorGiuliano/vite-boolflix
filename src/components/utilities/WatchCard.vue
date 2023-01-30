@@ -1,18 +1,18 @@
 <script>
 import { poster } from '../../data/index';
 export default {
-    name: 'Card',
+    name: "Card",
     data() {
         return {
             poster
-        }
+        };
     },
     props: {
         prod: Object
     },
     computed: {
         hasFlag() {
-            const flags = ['it', 'en'];
+            const flags = ["it", "en"];
             return flags.includes(this.prod.original_language);
         },
         srcFlags() {
@@ -20,13 +20,17 @@ export default {
             return url.href;
         },
         posterUrl() {
-            let posterUrl = '';
+            let posterUrl = "";
             if (this.prod.poster_path) {
                 posterUrl = poster + this.prod.poster_path;
             }
             return posterUrl;
+        },
+        vote() {
+            return Math.floor(this.prod.vote_average / 2);
         }
-    }
+    },
+
 }
 </script>
 <template>
@@ -37,7 +41,9 @@ export default {
             <img v-if="hasFlag" :src="srcFlags" :alt="prod.original_language">
             <div v-else>{{ prod.original_language }}</div>
         </li>
-        <li>{{ prod.vote_average }}</li>
+        <li>
+            <i v-for="n in 5" :class="n <= this.vote ? 'fa-solid' : 'fa-regular'" class="fa-star"></i>
+        </li>
         <li><img :src="posterUrl" :alt="prod.original_name"></li>
     </ul>
 </template>
