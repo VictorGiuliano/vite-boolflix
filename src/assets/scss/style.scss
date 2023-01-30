@@ -1,0 +1,32 @@
+@use './partials/mixin' as *;
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: grey;
+}
+
+.container {
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+ul {
+    list-style: none;
+}
+
+img {
+    height: auto;
+    width: 50%;
+}
+
+h3 {
+    color: white;
+    margin-bottom: 30px;
+    font-size: xx-large;
+}

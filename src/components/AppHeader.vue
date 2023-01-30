@@ -15,14 +15,32 @@ export default {
 }
 </script>
 <template>
-    <header class="container">
-        <div class="Logo">
-            <img src="../assets/img/logo.png">
+    <header>
+        <div class="container d-flex-space">
+            <div class="Logo">
+                <img src="../assets/img/logo.png">
+            </div>
+            <div>
+                <app-selection placeholder="Cerca titolo" @word-change="changeTitleFilter"
+                    @form-submit="passMovies"></app-selection>
+            </div>
         </div>
-        <app-selection placeholder="Cerca Film" @word-change="changeTitleFilter"
-            @form-submit="passMovies"></app-selection>
     </header>
 </template>
-<style>
+<style lang="scss" scoped>
+@use '../assets/scss/style.scss' as *;
+@use '../assets/scss/partials/mixin' as *;
 
+header {
+    background-color: black;
+
+    .img {
+        width: auto;
+        max-height: 50%;
+    }
+}
+
+.d-flex-space {
+    @include my-display-flex;
+}
 </style>
